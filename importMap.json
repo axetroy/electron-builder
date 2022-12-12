@@ -1,0 +1,17 @@
+{
+  "imports": {
+    "path": "https://deno.land/std@0.167.0/path/mod.ts",
+    "flags": "https://deno.land/std@0.167.0/flags/mod.ts",
+    "fs": "https://deno.land/std@0.167.0/fs/mod.ts",
+    "electron-builder": "./packages/electron-builder/main.ts",
+    "electron-builder-asar": "./packages/electron-builder-asar/main.ts",
+    "electron-builder-configuration": "./packages/electron-builder-configuration/main.ts",
+    "electron-builder-helper": "./packages/electron-builder-helper/main.ts",
+    "electron-builder-meta-data": "./packages/electron-builder-meta-data/main.ts",
+    "electron-builder-electron-downloader": "./packages/electron-builder-electron-downloader/main.ts",
+    "electron-builder-code-sign": "./packages/electron-builder-code-sign/main.ts",
+    "electron-builder-toolchain": "./packages/electron-builder-toolchain/main.ts",
+    "electron-builder-packer": "./packages/electron-builder-packer/main.ts",
+    "zip": "npm:extract-zip@2.0.1"
+  }
+}

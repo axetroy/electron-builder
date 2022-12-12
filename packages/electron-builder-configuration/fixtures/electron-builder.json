@@ -1,0 +1,7 @@
+{
+  "productName": "Demo",
+  "dist": "/Users/axetroy/gpm/github.com/axetroy/electron-builder/fixtures/test-app",
+  "electronMirrorOptions": {
+    "mirror": "https://npmmirror.com/mirrors/electron/"
+  }
+}
