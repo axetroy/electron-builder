@@ -4,5 +4,8 @@
     "options": {
       "lineWidth": 140
     }
+  },
+  "tasks": {
+    "test": "deno test -A"
   }
 }
