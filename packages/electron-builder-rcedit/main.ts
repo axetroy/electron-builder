@@ -29,8 +29,8 @@ export async function exec(args: string[]) {
   const p = Deno.run({
     cwd: Deno.cwd(),
     cmd: [extFilepath, ...args],
-    stderr: "inherit",
-    stdout: "inherit",
+    stderr: "piped",
+    stdout: "piped",
   });
 
   const status = await p.status();
@@ -38,4 +38,6 @@ export async function exec(args: string[]) {
   if (!status.success) {
     throw new Error(`Process exit with code ${status.code} and signal ${status.signal}`);
   }
+
+  return p.output();
 }
