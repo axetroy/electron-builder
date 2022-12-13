@@ -27,7 +27,7 @@ export async function build(configPath: string, config: Configuration, target: B
     config.electronMirrorOptions,
   );
 
-  const electronPrebuildDir = path.join(Deno.cwd(), `${target.platform}-${target.arch}-unpacked`);
+  const electronPrebuildDir = path.join(Deno.cwd(), `unpacked-${target.platform}-${target.arch}`);
 
   // 2. Extract electron pre-build binary and prune unused files
   await electronDownloader.extractElectronPrebuild(zipPath, electronPrebuildDir, target);
@@ -48,7 +48,7 @@ export async function build(configPath: string, config: Configuration, target: B
   await codeSign.sign();
 
   // 7. Build distribution format. eg. exe/dmg/deb/rpm
-  await packer.pack(electronPrebuildDir, config, "dmg");
+  await packer.pack(electronPrebuildDir, config, ["dmg"]);
 
   console.log("Done!");
 }
