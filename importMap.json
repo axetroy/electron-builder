@@ -12,6 +12,7 @@
     "electron-builder-code-sign": "./packages/electron-builder-code-sign/main.ts",
     "electron-builder-toolchain": "./packages/electron-builder-toolchain/main.ts",
     "electron-builder-packer": "./packages/electron-builder-packer/main.ts",
+    "electron-builder-rcedit": "./packages/electron-builder-rcedit/main.ts",
     "zip": "npm:extract-zip@2.0.1"
   }
 }

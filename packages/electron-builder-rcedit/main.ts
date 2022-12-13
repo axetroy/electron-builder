@@ -1,3 +1,5 @@
+import * as path from "path";
+
 async function isPathExist(filepath: string) {
   try {
     await Deno.stat(filepath);
@@ -13,7 +15,7 @@ async function isPathExist(filepath: string) {
 
 export async function exec(args: string[]) {
   const filename = `rcedit-${Deno.build.arch === "x86_64" ? "x64" : "x86"}.exe`;
-  const extFilepath = import.meta.resolve(filename);
+  const extFilepath = path.fromFileUrl(import.meta.resolve(`./${filename}`));
 
   if (await isPathExist(extFilepath) === false) {
     // download from remote
