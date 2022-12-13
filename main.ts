@@ -17,12 +17,19 @@ OPTIONS:
   -h, --help      print help information
   -V, --version   print version information
   --config        specify configuration file
+
   --windows       build for windows target
   --darwin        build for macos target
   --linux         build for linux target
+
   --ia32          build for ia32 arch
   --x86_64        build for x86_64 arch
   --arm64         build for arm64 arch
+
+  --dmg           build .dmg distribution format for macos
+  --deb           build .deb distribution format for linux
+  --rpm           build .rpm distribution format for linux
+  --nsis          build .exe distribution format for windows
 
 EXAMPLES:
   electron-builder --config=./path/to/electron-builder.json --windows --x86_64
@@ -45,6 +52,11 @@ interface FlagOptions {
   ia32?: boolean;
   x86_64?: boolean;
   arm64?: boolean;
+
+  dmg?: boolean;
+  deb?: boolean;
+  rpm?: boolean;
+  nsis?: boolean;
 }
 
 async function main() {
@@ -69,11 +81,26 @@ async function main() {
     printHelp();
   }
 
+  if (options.windows && !options.nsis) {
+    optionRequire("--nsis");
+    printHelp();
+  }
+
+  if (options.darwin && !options.dmg) {
+    optionRequire("--dmg");
+    printHelp();
+  }
+
+  if (options.linux && !options.deb && !options.rpm) {
+    optionRequire("--deb or --rpm");
+    printHelp();
+  }
+
   const configFilepath = path.isAbsolute(options.config) ? options.config : path.resolve(Deno.cwd(), options.config);
 
   const config = JSON.parse(await Deno.readTextFile(configFilepath)) as Configuration;
 
-  await electronBuilder.build(configFilepath, config, {
+  await electronBuilder.build(configFilepath, "dmg", config, {
     platform: options.windows ? "windows" : options.darwin ? "darwin" : "linux",
     // @ts-expect-error ignore
     arch: options.x86_64 ? "x86_64" : options.arm64 ? "arm64" : "ia32",

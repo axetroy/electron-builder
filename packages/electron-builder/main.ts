@@ -6,6 +6,7 @@ import * as metaData from "electron-builder-meta-data";
 import * as codeSign from "electron-builder-code-sign";
 import * as toolchain from "electron-builder-toolchain";
 import * as packer from "electron-builder-packer";
+import { DistributionName } from "electron-builder-packer";
 import * as path from "path";
 
 export interface BuildTarget {
@@ -18,7 +19,7 @@ export interface BuildTarget {
  * @param config
  * @param target
  */
-export async function build(configPath: string, config: Configuration, target: BuildTarget) {
+export async function build(configPath: string, format: DistributionName, config: Configuration, target: BuildTarget) {
   // 1. Download electron pre-build binary
   const zipPath = await electronDownloader.downloadElectronPrebuild(
     "v16.2.8",
@@ -48,7 +49,7 @@ export async function build(configPath: string, config: Configuration, target: B
   await codeSign.sign();
 
   // 7. Build distribution format. eg. exe/dmg/deb/rpm
-  await packer.pack(electronPrebuildDir, config, ["dmg"]);
+  await packer.pack(electronPrebuildDir, config, format);
 
   console.log("Done!");
 }
