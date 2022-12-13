@@ -14,6 +14,10 @@ async function isPathExist(filepath: string) {
 }
 
 export async function exec(args: string[]): Promise<[Uint8Array, Uint8Array]> {
+  if (Deno.build.os !== "windows") {
+    throw new Deno.errors.NotSupported("rcedit not support your system");
+  }
+
   const filename = `rcedit-${Deno.build.arch === "x86_64" ? "x64" : "x86"}.exe`;
   const extFilepath = path.fromFileUrl(import.meta.resolve(`./${filename}`));
 
