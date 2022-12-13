@@ -25,5 +25,5 @@ Deno.test("test download windows Electron prebuild binary", async () => {
   });
 
   assert(typeof zipPath === "string");
-  assertMatch(zipPath, /electron-v16\.2\.8-windows-x64\.zip/);
+  assertMatch(zipPath, /electron-v16\.2\.8-win32-x64\.zip/);
 });
