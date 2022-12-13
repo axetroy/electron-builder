@@ -13,7 +13,7 @@ async function isPathExist(filepath: string) {
   }
 }
 
-export async function exec(args: string[]) {
+export async function exec(args: string[]): Promise<[Uint8Array, Uint8Array]> {
   const filename = `rcedit-${Deno.build.arch === "x86_64" ? "x64" : "x86"}.exe`;
   const extFilepath = path.fromFileUrl(import.meta.resolve(`./${filename}`));
 
@@ -33,11 +33,17 @@ export async function exec(args: string[]) {
     stdout: "piped",
   });
 
-  const status = await p.status();
+  const [status, stdout, stderr] = await Promise.all([
+    p.status(),
+    p.output(),
+    p.stderrOutput(),
+  ]);
+
+  p.close();
 
   if (!status.success) {
     throw new Error(`Process exit with code ${status.code} and signal ${status.signal}`);
   }
 
-  return p.output();
+  return [stdout, stderr];
 }

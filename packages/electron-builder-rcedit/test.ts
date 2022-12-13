@@ -3,7 +3,7 @@ import { exec } from "./main.ts";
 Deno.test({
   name: "Run rcedit command",
   fn: async () => {
-    const output = await exec(["--help"]);
+    const [output] = await exec(["--help"]);
 
     console.log(new TextDecoder().decode(output));
   },
